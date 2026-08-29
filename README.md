@@ -115,7 +115,7 @@ bash tests.sh            # full suite
 bash tests.sh --verbose
 ```
 
-CI runs the suite on every push (`.github/workflows/ci.yml`).
+CI pipeline ships as an example (`docs/ci.yml.example` — enable guide in [docs/CI.md](docs/CI.md)).
 
 ## 📖 Documentation
 
