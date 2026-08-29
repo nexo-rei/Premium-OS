@@ -111,7 +111,9 @@ pos_quick_setup_wizard() {
     fi
 
     if pos_has_jq; then
-        local pf="$POS_HOME/profiles/${prof}.json" tmp="$pf.pos_tmp"
+        local pf tmp
+        pf="$POS_HOME/profiles/${prof}.json"
+        tmp="$pf.pos_tmp"
         jq --arg s "$shell_" --arg b "$banner_" \
            '.shell=$s | .banner=$b' "$pf" >"$tmp" && mv "$tmp" "$pf"
     fi

@@ -25,7 +25,8 @@ dry_run_cleanup() {
     tmpc=$(calculate_disk_space "$POS_HOME_D/tmp")
     cache=$(calculate_disk_space "$POS_HOME_D/cache")
     aptc=0
-    [[ -d "$PREFIX/var/cache/apt/archives" ]] && aptc=$(calculate_disk_space "$PREFIX/var/cache/apt/archives")
+    [[ -n "${PREFIX:-}" && -d "${PREFIX:-}/var/cache/apt/archives" ]] \
+        && aptc=$(calculate_disk_space "$PREFIX/var/cache/apt/archives")
     [[ "$aptc" == 0 && -d /var/cache/apt/archives ]] && aptc=$(calculate_disk_space /var/cache/apt/archives)
     printf '  %-28s %s\n' "POS history logs:"  "$(pos_human_size "$hist")"
     printf '  %-28s %s\n' "POS temp files:"    "$(pos_human_size "$tmpc")"

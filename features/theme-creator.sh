@@ -71,7 +71,8 @@ display_color_picker() {
 # Approximates via channel rotation in RGB space.
 #----------------------------------------
 suggest_color_harmony() {
-    local key="$1" hex="${TC_DRAFT[$key]}" r g b
+    local key="$1" hex r g b
+    hex="${TC_DRAFT[$key]}"
     read -r r g b <<<"$(pos_hex_to_rgb "$hex" 2>/dev/null)" || return 0
     local comp; comp=$(pos_rgb_to_hex $((255-r)) $((255-b)) $((255-g)))
     local an1;  an1=$(pos_rgb_to_hex "$g" "$b" "$r")   # rotate channels
@@ -84,7 +85,7 @@ suggest_color_harmony() {
 #----------------------------------------
 # theme_preview — renders the draft as a living terminal mock
 #----------------------------------------
-theme_preview() {
+tc_preview() {
     echo
     local p s a bg fg
     p="${TC_DRAFT[primary]}"; s="${TC_DRAFT[secondary]}"; a="${TC_DRAFT[accent]}"
@@ -186,7 +187,7 @@ theme_creator_ui() {
     local c
     while true; do
         _menu_header "🎨 Visual Theme Creator" ""
-        theme_preview
+        tc_preview
         printf ' %b1%b Primary      %b2%b Secondary    %b3%b Accent\n' "$POS_CYAN" "$POS_RESET" "$POS_CYAN" "$POS_RESET" "$POS_CYAN" "$POS_RESET"
         printf ' %b4%b Background   %b5%b Foreground   %b6%b Fonts\n' "$POS_CYAN" "$POS_RESET" "$POS_CYAN" "$POS_RESET" "$POS_CYAN" "$POS_RESET"
         printf ' %b7%b Gradient     %b8%b Save theme   %b9%b Export code\n' "$POS_CYAN" "$POS_RESET" "$POS_CYAN" "$POS_RESET" "$POS_CYAN" "$POS_RESET"

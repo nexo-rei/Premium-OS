@@ -180,6 +180,7 @@ list_plugins() {
         echo -e "      ${POS_GRAY}$(pos_json_get "$d/manifest.json" description 2>/dev/null)${POS_RESET}"
     done
     (( found == 0 )) && echo "  (no plugins installed)"
+    return 0
 }
 
 #----------------------------------------

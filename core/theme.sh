@@ -68,6 +68,12 @@ apply_theme() {
     file=$(theme_file_for "$name")
     [[ -z "$file" ]] && { pos_error "Theme '$name' not found."; return 1; }
 
+    # Self-heal a half-installed data dir instead of failing silently.
+    if [[ ! -f "${POS_HOME:-$HOME/.premium-os}/settings.json" ]]; then
+        pos_ensure_dirs >/dev/null 2>&1
+        pos_default_settings >/dev/null 2>&1
+    fi
+
     # Validate JSON themes
     if pos_has_jq && ! jq empty "$file" 2>/dev/null; then
         pos_error "Theme file is corrupted (invalid JSON)."
@@ -95,7 +101,10 @@ apply_theme() {
             ' "$pdir" >"$tmp" && mv "$tmp" "$pdir"
         fi
     fi
-    pos_json_set "$ip" ui.theme "$name" >/dev/null 2>&1
+    if ! pos_json_set "$ip" ui.theme "$name" >/dev/null 2>&1; then
+        pos_error "Could not record theme in settings."
+        return 1
+    fi
 
     # Trigger plugin hook if plugin manager is loaded
     if declare -f pos_emit_hook >/dev/null 2>&1; then pos_emit_hook "theme:applied" "$name"; fi
@@ -201,7 +210,8 @@ JSON
 # export_theme <name> <out_path>
 #----------------------------------------
 export_theme() {
-    local name="$1" out="${2:-${PWD}/${name}.theme.json}" file
+    local name="$1" out file
+    out="${2:-${PWD}/${name}.theme.json}"
     file=$(theme_file_for "$name")
     [[ -z "$file" ]] && { pos_error "Theme '$name' not found."; return 1; }
     cp "$file" "$out" || return 1

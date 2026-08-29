@@ -102,7 +102,9 @@ pos_json_get() {
     local file="$1" key="$2"
     [[ -f "$file" ]] || return 1
     if pos_has_jq; then
-        jq -r ".$key // empty" "$file" 2>/dev/null
+        # NB: `$key // empty` would swallow legitimate boolean `false`
+        # values — only null/missing should collapse to empty.
+        jq -r ".$key | if . == null then empty else . end" "$file" 2>/dev/null
     else
         # Fallback: extract top-level scalar "key": "value" pairs
         local leaf="${key##*.}"
@@ -121,7 +123,7 @@ pos_json_set() {
             number) jq --arg v "$value" ".$key = (\$v|tonumber)" "$file" >"$tmp" ;;
             bool)   jq --arg v "$value" ".$key = (\$v==\"true\")"  "$file" >"$tmp" ;;
             *)      jq --arg v "$value" ".$key = \$v"              "$file" >"$tmp" ;;
-        esac && mv "$tmp" "$file"
+        esac && mv "$tmp" "$file" && chmod 600 "$file" 2>/dev/null
     else
         pos_warn "jq not available — cannot set $key in ${file##*/}"
         return 1

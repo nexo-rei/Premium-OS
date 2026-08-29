@@ -97,6 +97,7 @@ list_backups() {
     done < <(find "$POS_BACKUPS_DIR" -name 'backup-*.poz' -printf '%T@ %p\n' 2>/dev/null \
              | sort -nr | cut -d' ' -f2-)
     (( n == 0 )) && echo "  (no backups yet)"
+    return 0
 }
 
 #----------------------------------------

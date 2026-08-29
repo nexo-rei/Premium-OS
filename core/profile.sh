@@ -189,7 +189,8 @@ merge_profile() {
 # profile_preview <name>
 #----------------------------------------
 profile_preview() {
-    local name="$1" f="$POS_PROFILES_DIR/$name.json"
+    local name="$1" f
+    f="$POS_PROFILES_DIR/$name.json"
     [[ -f "$f" ]] || { pos_error "'$name' not found."; return 1; }
     echo -e "${POS_BOLD}Profile: ${POS_CYAN}$name${POS_RESET}"
     if pos_has_jq; then

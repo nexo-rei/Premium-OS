@@ -112,7 +112,8 @@ suggest_theme() {
 
 _smart_bump() { # $1=bucket $2=theme
     pos_has_jq || return 0
-    local f="$POS_SMART_FILE" tmp="$f.tmp" cur
+    local f="$POS_SMART_FILE" tmp cur
+    tmp="$f.tmp"
     cur=$(jq -r ".$1[\"$2\"] // 0" "$f" 2>/dev/null || echo 0)
     jq ".$1[\"$2\"] = $((cur+1))" "$f" >"$tmp" 2>/dev/null && mv "$tmp" "$f"
 }

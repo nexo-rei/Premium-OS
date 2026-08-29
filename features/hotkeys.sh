@@ -92,6 +92,7 @@ list_hotkeys() {
         n=$((n+1))
     done < "$POS_HOTKEYS_FILE"
     (( n == 0 )) && echo "  (no hotkeys yet)"
+    return 0
 }
 
 #----------------------------------------

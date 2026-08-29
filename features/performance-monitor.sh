@@ -19,7 +19,7 @@ get_cpu_usage() {
     _read_stat() { awk '/^cpu /{print $2, $3, $4, $5, $6, $7, $8}' /proc/stat; }
     local prev; prev=$(_read_stat)   # seed with state from ~0.15s ago
     # Use cached state when possible to avoid sleep on repeated calls
-    if [[ -n "$POS_CPU_PREV" ]]; then prev="$POS_CPU_PREV"; else sleep 0.1; fi
+    if [[ -n "${POS_CPU_PREV:-}" ]]; then prev="$POS_CPU_PREV"; else sleep 0.1; fi
     local cur; cur=$(_read_stat)
     export POS_CPU_PREV="$cur"
     awk -v p="$prev" -v c="$cur" 'BEGIN{
@@ -27,7 +27,9 @@ get_cpu_usage() {
         idle_d  = (b[4]+b[5]) - (a[4]+a[5]);
         tot=0; for (i=1;i<=7;i++) tot += b[i]-a[i];
         if (tot<=0) {print 0; exit}
-        printf "%.0f", (1 - idle_d/tot)*100
+        p=(1 - idle_d/tot)*100;
+        if (p<0) p=0; if (p>100) p=100;
+        printf "%.0f", p
     }'
 }
 
