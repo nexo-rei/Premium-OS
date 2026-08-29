@@ -42,7 +42,9 @@ pos_debug() { [[ "${POS_DEBUG:-0}" == "1" ]] && printf '%b\n' "${POS_GRAY}[debug
 # stdout — this keeps `x=$(pos_prompt ...)` capture clean.
 #----------------------------------------
 _pos_prompt_out() {
-    printf '%b' "$1" > /dev/tty 2>/dev/null || printf '%b' "$1" >&2
+    # stderr redirected BEFORE the tty open, so a missing controlling
+    # terminal stays silent and we fall back to the script's stderr.
+    printf '%b' "$1" 2>/dev/null > /dev/tty || printf '%b' "$1" >&2
 }
 
 pos_prompt() {
