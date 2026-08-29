@@ -1,0 +1,17 @@
+{
+  "name": "Premium-OS Dashboard",
+  "short_name": "Premium-OS",
+  "description": "Control panel for Premium-OS Termux customization platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0E27",
+  "theme_color": "#0A0E27",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

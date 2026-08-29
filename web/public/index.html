@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0E27">
+<title>Premium-OS · Dashboard</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!--════════ TOP BAR ════════-->
+<header class="topbar glass">
+  <div class="brand">
+    <span class="logo">◢◤</span>
+    <span class="brand-name">Premium-OS</span>
+    <span class="version" id="hdr-version">v1.0</span>
+  </div>
+  <div class="top-stats">
+    <span class="stat-chip" id="hdr-profile" title="Active profile">● default</span>
+    <span class="stat-chip" id="hdr-ws" title="Live updates">connecting…</span>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark" aria-label="Toggle theme">☼</button>
+  </div>
+</header>
+
+<!--════════ LAYOUT ════════-->
+<div class="layout">
+
+  <nav class="sidenav glass" id="sidenav" aria-label="Main">
+    <button class="nav-item active" data-view="overview"><span class="ico">⌂</span><span class="lbl">Overview</span></button>
+    <button class="nav-item" data-view="profiles"><span class="ico">🗂</span><span class="lbl">Profiles</span></button>
+    <button class="nav-item" data-view="themes"><span class="ico">🎨</span><span class="lbl">Themes</span></button>
+    <button class="nav-item" data-view="performance"><span class="ico">⚡</span><span class="lbl">Performance</span></button>
+    <button class="nav-item" data-view="backups"><span class="ico">💾</span><span class="lbl">Backups</span></button>
+    <button class="nav-item" data-view="snippets"><span class="ico">📚</span><span class="lbl">Snippets</span></button>
+    <button class="nav-item" data-view="hotkeys"><span class="ico">⌨</span><span class="lbl">Hotkeys</span></button>
+    <button class="nav-item" data-view="plugins"><span class="ico">🧩</span><span class="lbl">Plugins</span></button>
+    <button class="nav-item" data-view="settings"><span class="ico">⚙</span><span class="lbl">Settings</span></button>
+  </nav>
+
+  <main class="content" id="content">
+
+    <!--──── OVERVIEW ────-->
+    <section class="view active" id="view-overview">
+      <h1 class="view-title fade-in">Overview</h1>
+      <div class="grid grid-overview">
+        <article class="card glass gauge-card fade-in" style="--d:.05s">
+          <h3>CPU</h3>
+          <div class="gauge" id="gauge-cpu" data-pct="0"><span class="gauge-num">0%</span></div>
+          <p class="muted">live %</p>
+        </article>
+        <article class="card glass gauge-card fade-in" style="--d:.1s">
+          <h3>RAM</h3>
+          <div class="gauge" id="gauge-ram" data-pct="0"><span class="gauge-num">0%</span></div>
+          <p class="muted" id="ram-detail">—</p>
+        </article>
+        <article class="card glass fade-in" style="--d:.15s">
+          <h3>Uptime</h3>
+          <p class="big-num mono" id="uptime-val">—</p>
+          <p class="muted" id="uptime-sys"></p>
+        </article>
+        <article class="card glass fade-in" style="--d:.2s">
+          <h3>Processes</h3>
+          <p class="big-num mono" id="procs-val">—</p>
+          <p class="muted">running</p>
+        </article>
+        <article class="card glass wide fade-in" style="--d:.25s">
+          <h3>Live chart</h3>
+          <canvas id="chart-live" height="110"></canvas>
+        </article>
+        <article class="card glass fade-in" style="--d:.3s">
+          <h3>Quick actions</h3>
+          <div class="btn-row">
+            <button class="btn primary" id="qa-backup">One-click backup</button>
+            <button class="btn" data-goto="themes">Change theme</button>
+            <button class="btn" data-goto="profiles">Switch profile</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!--──── PROFILES ────-->
+    <section class="view" id="view-profiles">
+      <h1 class="view-title">Profiles</h1>
+      <div class="toolbar">
+        <input class="input" id="profile-new" placeholder="new profile name">
+        <button class="btn primary" id="profile-create">+ Create</button>
+      </div>
+      <div class="grid" id="profiles-list"><!-- cards injected --></div>
+    </section>
+
+    <!--──── THEMES ────-->
+    <section class="view" id="view-themes">
+      <h1 class="view-title">Themes</h1>
+      <div class="card glass">
+        <h3>Theme creator</h3>
+        <div class="creator">
+          <div class="creator-controls">
+            <label class="field">Name <input class="input" id="tc-name" placeholder="my-theme"></label>
+            <label class="field">Primary <input type="color" id="tc-primary" value="#00d9ff"></label>
+            <label class="field">Secondary <input type="color" id="tc-secondary" value="#ff006e"></label>
+            <label class="field">Accent <input type="color" id="tc-accent" value="#00ff41"></label>
+            <label class="field">Background <input type="color" id="tc-bg" value="#0a0e27"></label>
+            <label class="field">Font
+              <select class="input" id="tc-font">
+                <option>Fira Code</option><option>JetBrains Mono</option><option>FiraCode Nerd</option>
+                <option>Hack</option><option>Ubuntu Mono</option><option>Source Code Pro</option>
+              </select>
+            </label>
+          </div>
+          <div class="creator-preview terminal" id="tc-preview">
+            <div class="tp-title">◢◤ premium-os · preview</div>
+            <div class="tp-line"><span class="tp-user">user@termux</span> <span class="tp-prompt">❯</span> git status</div>
+            <div class="tp-line tp-ok">✔ branch: main · 3 files staged</div>
+            <div class="tp-line"><span class="tp-user">user@termux</span> <span class="tp-prompt">❯</span> _</div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" id="tc-save">Save theme</button>
+          <button class="btn" id="tc-apply" disabled>Apply</button>
+          <button class="btn" id="tc-copy">Copy code</button>
+        </div>
+        <p class="muted" id="tc-harmony"></p>
+      </div>
+      <div class="grid" id="themes-list"></div>
+    </section>
+
+    <!--──── PERFORMANCE ────-->
+    <section class="view" id="view-performance">
+      <h1 class="view-title">Performance</h1>
+      <div class="grid">
+        <article class="card glass wide">
+          <h3>CPU / RAM history (live)</h3>
+          <canvas id="chart-perf" height="140"></canvas>
+        </article>
+        <article class="card glass">
+          <h3>Export</h3>
+          <div class="btn-row">
+            <button class="btn" id="perf-csv">Download CSV</button>
+          </div>
+          <p class="muted">24 h rolling window · 2 s samples</p>
+        </article>
+      </div>
+    </section>
+
+    <!--──── BACKUPS ────-->
+    <section class="view" id="view-backups">
+      <h1 class="view-title">Backups</h1>
+      <div class="toolbar">
+        <button class="btn primary" id="backup-create">+ Create backup</button>
+      </div>
+      <div class="list" id="backups-list"></div>
+    </section>
+
+    <!--──── SNIPPETS ────-->
+    <section class="view" id="view-snippets">
+      <h1 class="view-title">Snippets</h1>
+      <div class="toolbar">
+        <input class="input" id="snip-search" placeholder="search…">
+      </div>
+      <div class="card glass">
+        <h3>Add snippet</h3>
+        <div class="form-row">
+          <input class="input" id="snip-cat" placeholder="Category">
+          <input class="input" id="snip-name" placeholder="Name">
+        </div>
+        <input class="input mono" id="snip-cmd" placeholder="command">
+        <div class="btn-row"><button class="btn primary" id="snip-add">Add</button></div>
+      </div>
+      <div class="list" id="snippets-list"></div>
+    </section>
+
+    <!--──── HOTKEYS ────-->
+    <section class="view" id="view-hotkeys">
+      <h1 class="view-title">Hotkeys</h1>
+      <div class="card glass">
+        <div class="form-row">
+          <input class="input" id="hk-key" placeholder="Ctrl+Shift+P">
+          <input class="input mono" id="hk-cmd" placeholder="command">
+        </div>
+        <div class="btn-row"><button class="btn primary" id="hk-add">Register</button></div>
+      </div>
+      <div class="list" id="hotkeys-list"></div>
+    </section>
+
+    <!--──── PLUGINS ────-->
+    <section class="view" id="view-plugins">
+      <h1 class="view-title">Plugins</h1>
+      <div class="grid" id="plugins-list"></div>
+    </section>
+
+    <!--──── SETTINGS ────-->
+    <section class="view" id="view-settings">
+      <h1 class="view-title">Settings</h1>
+      <div class="card glass" id="settings-card">
+        <div class="setting-row"><span>Animations</span><button class="switch" data-setting="ui.animations"></button></div>
+        <div class="setting-row"><span>Banner at start</span><button class="switch" data-setting="ui.banner"></button></div>
+        <div class="setting-row"><span>Smart suggestions</span><button class="switch" data-setting="smart.suggestions_enabled"></button></div>
+        <div class="setting-row"><span>Auto backup</span><button class="switch" data-setting="backup.auto_backup"></button></div>
+        <div class="setting-row"><span>Cyber Lock</span><button class="switch" data-setting="security.cyber_lock_enabled"></button></div>
+        <div class="setting-row">
+          <span>Max backups</span>
+          <input class="input small" id="set-max-backups" type="number" min="1" max="50">
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!--════════ BOTTOM NAV (mobile) ════════-->
+<nav class="bottomnav glass" aria-label="Mobile">
+  <button class="bn-item active" data-view="overview">⌂</button>
+  <button class="bn-item" data-view="themes">🎨</button>
+  <button class="bn-item" data-view="performance">⚡</button>
+  <button class="bn-item" data-view="backups">💾</button>
+  <button class="bn-item" data-view="settings">⚙</button>
+</nav>
+
+<div class="toast-container" id="toasts"></div>
+
+<button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
+
+<script src="/app.js" defer></script>
+</body>
+</html>

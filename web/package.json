@@ -1,0 +1,14 @@
+{
+  "name": "premium-os-dashboard",
+  "version": "1.0.0",
+  "description": "Web dashboard for Premium-OS (Termux terminal customization platform)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "smoke": "node test/smoke.js"
+  },
+  "engines": { "node": ">=14" },
+  "license": "MIT",
+  "comment": "Zero runtime dependencies by design (Light Setup Mode). The server uses only Node.js built-ins. express/ws/body-parser equivalents are implemented internally; if you prefer their APIs the REST + WS surface stays identical.",
+  "optionalDependencies": {}
+}
