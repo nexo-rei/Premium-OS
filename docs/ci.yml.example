@@ -1,0 +1,62 @@
+name: Premium-OS CI
+
+on:
+  push:
+    branches: [main, 'arena/*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  bash-suite:
+    name: Bash test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax check all shell files
+        run: |
+          set -e
+          while IFS= read -r f; do
+            bash -n "$f" || exit 1
+          done < <(find . -name '*.sh' -not -path './.git/*')
+
+      - name: shellcheck (if available)
+        run: |
+          if command -v shellcheck >/dev/null; then
+            shellcheck -S warning core/*.sh features/*.sh ui/*.sh main.sh tests.sh INSTALL.sh scripts/*.sh \
+              || echo "::warning::shellcheck reported issues"
+          else
+            echo "shellcheck not installed — skipped"
+          fi
+
+      - name: Run the full test suite
+        run: bash tests.sh
+
+      - name: Validate JSON assets
+        run: |
+          for f in config/themes/*.json config/defaults.json config/fonts/catalog.json config/icons/themes.json; do
+            jq empty "$f"
+          done
+
+      - name: Installer dry run (isolated HOME)
+        run: |
+          export POS_ANIM_DISABLE=1
+          TEST_HOME=$(mktemp -d)
+          mkdir -p "$TEST_HOME"
+          touch "$TEST_HOME/.bashrc"
+          printf 'n\n' | HOME="$TEST_HOME" POS_HOME="$TEST_HOME/.premium-os" bash INSTALL.sh
+          HOME="$TEST_HOME" POS_HOME="$TEST_HOME/.premium-os" bash main.sh version
+
+  web-dashboard:
+    name: Web dashboard smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check JS
+        run: |
+          node --check web/server.js
+          node --check web/routes/api.js
+          node --check web/routes/websocket.js
+          node --check web/public/app.js
+      - name: Run smoke test
+        run: cd web && node test/smoke.js

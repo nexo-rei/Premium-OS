@@ -1,0 +1,21 @@
+{
+  "name": "dark",
+  "author": "Premium-OS",
+  "description": "Deep charcoal with cyan accents — the flagship look.",
+  "colors": {
+    "primary": "#00D9FF",
+    "secondary": "#FF006E",
+    "accent": "#00FF41",
+    "background": "#0A0E27",
+    "foreground": "#FFFFFF",
+    "surface": "#1A1A2E",
+    "warning": "#FFD700",
+    "danger": "#FF006E"
+  },
+  "font": {"family": "Fira Code", "size": 14},
+  "gradient": "neon",
+  "border": {"width": 1, "style": "solid", "radius": 8, "glow": true},
+  "blur": {"enabled": true, "amount": 10},
+  "emoji": true,
+  "icon_theme": "Neon"
+}

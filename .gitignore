@@ -1,0 +1,28 @@
+# Premium-OS runtime artifacts
+*.poz
+*.tmp
+*.log
+*.bak
+
+# Node / web dashboard
+node_modules/
+npm-debug.log*
+web/node_modules/
+
+# User data (lives in ~/.premium-os, never in the repo)
+data/profiles/*.local.json
+data/backups/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Test artifacts
+tests/*.log
+tests/report.html
+.coverage/

@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "layout": "auto",
+  "default_theme": "dark",
+  "default_profile": "default",
+  "performance": {
+    "refresh_seconds": 2,
+    "history_cap_lines": 43200
+  },
+  "backup": {
+    "dir": "backups",
+    "retention": 10,
+    "format": "poz"
+  },
+  "hotkeys": {
+    "reserved": ["Ctrl+C", "Ctrl+Z", "Ctrl+D", "Ctrl+L", "Ctrl+Q", "Ctrl+S"]
+  },
+  "smart": {
+    "day_start_hour": 7,
+    "day_end_hour": 19,
+    "reject_threshold": 3
+  }
+}

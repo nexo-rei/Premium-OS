@@ -1,0 +1,26 @@
+{
+  "fonts": [
+    {"name": "Fira Code",       "nerd": false, "ligatures": true,  "weights": ["Regular","Medium","Bold"]},
+    {"name": "JetBrains Mono",  "nerd": false, "ligatures": true,  "weights": ["Regular","Medium","Bold","ExtraBold"]},
+    {"name": "FiraCode Nerd",   "nerd": true,  "ligatures": true,  "weights": ["Regular","Bold"]},
+    {"name": "Hack",            "nerd": false, "ligatures": false, "weights": ["Regular","Bold","Italic"]},
+    {"name": "Ubuntu Mono",     "nerd": false, "ligatures": false, "weights": ["Regular","Bold","Italic"]},
+    {"name": "Source Code Pro", "nerd": false, "ligatures": false, "weights": ["Regular","Semibold","Bold"]},
+    {"name": "Cascadia Code",   "nerd": false, "ligatures": true,  "weights": ["Regular","Bold"]},
+    {"name": "DejaVu Sans Mono","nerd": false, "ligatures": false, "weights": ["Regular","Bold"]},
+    {"name": "Inconsolata",     "nerd": false, "ligatures": false, "weights": ["Regular","Bold"]},
+    {"name": "Roboto Mono",     "nerd": false, "ligatures": false, "weights": ["Regular","Medium","Bold"]},
+    {"name": "Victor Mono",     "nerd": false, "ligatures": true,  "weights": ["Regular","Medium","Bold"]},
+    {"name": "IBM Plex Mono",   "nerd": false, "ligatures": false, "weights": ["Regular","Medium","Bold"]},
+    {"name": "Space Mono",      "nerd": false, "ligatures": false, "weights": ["Regular","Bold","Italic"]},
+    {"name": "Anonymous Pro",   "nerd": false, "ligatures": false, "weights": ["Regular","Bold","Italic"]},
+    {"name": "Courier Prime",   "nerd": false, "ligatures": false, "weights": ["Regular","Bold","Italic"]}
+  ],
+  "pairings": {
+    "Fira Code": "JetBrains Mono",
+    "Hack": "Ubuntu Mono",
+    "Source Code Pro": "IBM Plex Mono",
+    "Cascadia Code": "Roboto Mono"
+  },
+  "size_range": [8, 28]
+}

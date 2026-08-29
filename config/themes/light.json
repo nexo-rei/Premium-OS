@@ -1,0 +1,21 @@
+{
+  "name": "light",
+  "author": "Premium-OS",
+  "description": "Crisp off-white surfaces for bright environments.",
+  "colors": {
+    "primary": "#0077B6",
+    "secondary": "#D62850",
+    "accent": "#2A9D3F",
+    "background": "#F5F5F5",
+    "foreground": "#1A1A1A",
+    "surface": "#FFFFFF",
+    "warning": "#B8860B",
+    "danger": "#C9184A"
+  },
+  "font": {"family": "JetBrains Mono", "size": 14},
+  "gradient": "subtle",
+  "border": {"width": 1, "style": "solid", "radius": 6, "glow": false},
+  "blur": {"enabled": false, "amount": 0},
+  "emoji": true,
+  "icon_theme": "Minimalist"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "neon",
+  "author": "Premium-OS",
+  "description": "Electric cyberpunk glow — maximum vibrance.",
+  "colors": {
+    "primary": "#00FFF7",
+    "secondary": "#FF00E4",
+    "accent": "#B6FF00",
+    "background": "#050510",
+    "foreground": "#E6FBFF",
+    "surface": "#0D0D26",
+    "warning": "#FFE900",
+    "danger": "#FF2D78"
+  },
+  "font": {"family": "FiraCode Nerd", "size": 14},
+  "gradient": "neon",
+  "border": {"width": 2, "style": "double", "radius": 10, "glow": true},
+  "blur": {"enabled": true, "amount": 14},
+  "emoji": true,
+  "icon_theme": "Neon"
+}
