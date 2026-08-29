@@ -78,11 +78,15 @@ validate_plugin() {
                 || { pos_error "manifest missing field: $k"; return 1; }
         done
     fi
-    # Reject obviously dangerous operations unless plugin declares "shell" permission
-    if grep -qE '\b(rm -rf /|mkfs|dd if=|:(){ :|:& };:)\b' "$dir/plugin.sh" 2>/dev/null; then
-        pos_error "plugin contains dangerous code patterns — rejected."
-        return 1
-    fi
+    # Reject obviously dangerous code patterns (fixed-string scan, line-based)
+    local -a danger=("rm -rf /" "rm -rf ~" "rm -rf /*" "mkfs" "dd if=" "shutdown" "reboot" ":(){ :|:& };:")
+    local pat
+    for pat in "${danger[@]}"; do
+        if grep -qF -- "$pat" "$dir/plugin.sh" 2>/dev/null; then
+            pos_error "plugin contains dangerous code pattern: '$pat' — rejected."
+            return 1
+        fi
+    done
     return 0
 }
 

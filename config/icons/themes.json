@@ -1,0 +1,9 @@
+{
+  "icon_themes": {
+    "Neon":         {"set": {"file": "◆", "folder": "▣", "ok": "✦", "warn": "⬢", "err": "◉"}, "sizes": [16, 24, 32, 48, 64]},
+    "Glassmorphism":{"set": {"file": "◍", "folder": "▢", "ok": "○", "warn": "▧", "err": "◌"}, "sizes": [16, 24, 32, 48, 64]},
+    "Minimalist":   {"set": {"file": "+", "folder": "▸", "ok": "o", "warn": "!", "err": "x"}, "sizes": [16, 24, 32]},
+    "Retro":        {"set": {"file": "▟", "folder": "▛", "ok": "▙", "warn": "▜", "err": "▞"}, "sizes": [16, 32]},
+    "Gradient":     {"set": {"file": "◢", "folder": "◣", "ok": "◤", "warn": "◥", "err": "◬"}, "sizes": [16, 24, 32, 48, 64]}
+  }
+}

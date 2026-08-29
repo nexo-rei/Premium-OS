@@ -1,0 +1,21 @@
+{
+  "name": "dracula",
+  "author": "Premium-OS",
+  "description": "The classic Dracula palette.",
+  "colors": {
+    "primary": "#8BE9FD",
+    "secondary": "#FF79C6",
+    "accent": "#50FA7B",
+    "background": "#282A36",
+    "foreground": "#F8F8F2",
+    "surface": "#44475A",
+    "warning": "#F1FA8C",
+    "danger": "#FF5555"
+  },
+  "font": {"family": "Hack", "size": 14},
+  "gradient": "subtle",
+  "border": {"width": 1, "style": "solid", "radius": 8, "glow": false},
+  "blur": {"enabled": true, "amount": 8},
+  "emoji": true,
+  "icon_theme": "Gradient"
+}

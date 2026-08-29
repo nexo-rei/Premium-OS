@@ -38,13 +38,19 @@ pos_debug() { [[ "${POS_DEBUG:-0}" == "1" ]] && printf '%b\n' "${POS_GRAY}[debug
 #----------------------------------------
 # Prompts
 # pos_prompt <label> [default]
+# The label goes to /dev/tty (or stderr) so that only the VALUE reaches
+# stdout — this keeps `x=$(pos_prompt ...)` capture clean.
 #----------------------------------------
+_pos_prompt_out() {
+    printf '%b' "$1" > /dev/tty 2>/dev/null || printf '%b' "$1" >&2
+}
+
 pos_prompt() {
     local label="$1" default="${2:-}" input
     if [[ -n "$default" ]]; then
-        printf '%b' "${POS_YELLOW}$label${POS_RESET} ${POS_GRAY}[$default]${POS_RESET} "
+        _pos_prompt_out "${POS_YELLOW}$label${POS_RESET} ${POS_GRAY}[$default]${POS_RESET} "
     else
-        printf '%b' "${POS_YELLOW}$label${POS_RESET} "
+        _pos_prompt_out "${POS_YELLOW}$label${POS_RESET} "
     fi
     read -r input
     echo "${input:-$default}"
@@ -53,8 +59,9 @@ pos_prompt() {
 # pos_confirm <question> → 0 yes / 1 no
 pos_confirm() {
     local reply
-    printf '%b' "${POS_YELLOW}$1${POS_RESET} ${POS_GRAY}(y/N)${POS_RESET} "
-    read -rn 1 reply; printf '\n'
+    _pos_prompt_out "${POS_YELLOW}$1${POS_RESET} ${POS_GRAY}(y/N)${POS_RESET} "
+    read -rn 1 reply
+    _pos_prompt_out "\n"
     [[ "${reply,,}" == "y" ]]
 }
 

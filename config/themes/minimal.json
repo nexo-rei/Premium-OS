@@ -1,0 +1,21 @@
+{
+  "name": "minimal",
+  "author": "Premium-OS",
+  "description": "Near-monochrome clarity for focused work.",
+  "colors": {
+    "primary": "#8AB4F8",
+    "secondary": "#A7A7A7",
+    "accent": "#7BD88F",
+    "background": "#111111",
+    "foreground": "#DDDDDD",
+    "surface": "#1C1C1C",
+    "warning": "#E5C07B",
+    "danger": "#E06C75"
+  },
+  "font": {"family": "Source Code Pro", "size": 14},
+  "gradient": "none",
+  "border": {"width": 1, "style": "solid", "radius": 4, "glow": false},
+  "blur": {"enabled": false, "amount": 0},
+  "emoji": false,
+  "icon_theme": "Minimalist"
+}

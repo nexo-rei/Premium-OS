@@ -130,9 +130,9 @@ pos_read_key() { # echoes the single key pressed
 }
 
 # Numeric keypad / number menu selection helper
-pos_select() { # $1=prompt → echoes selection string
+pos_select() { # $1=prompt → echoes selection string (prompt goes to tty)
     local sel
-    printf '%b' "${POS_YELLOW}$1${POS_RESET} "
+    printf '%b' "${POS_YELLOW}$1${POS_RESET} " > /dev/tty 2>/dev/null || printf '%b' "${POS_YELLOW}$1${POS_RESET} " >&2
     read -r sel
     echo "$sel"
 }
